@@ -55,14 +55,17 @@ app.post("/edit", (req, res) => {
   res.redirect("/");
 
 
-  // const result = db.query("")
+  
 
  
   
 });
 
 app.post("/delete", (req, res) => {
+  const queryID = req.body.deleteItemId;
  
+   db.query("DELETE FROM items where id = $1", [queryID]);
+   res.redirect("/");
 });
 
 app.listen(port, () => {
