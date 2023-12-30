@@ -34,7 +34,7 @@ async function getItems(){
 
 app.get("/", async (req, res) => {
   const item = await getItems();
-  console.log(item);
+  
   res.render("index.ejs", {
     listTitle: "Today",
     listItems: items,
@@ -49,7 +49,11 @@ app.post("/add", (req, res) => {
 });
 
 app.post("/edit", (req, res) => {
- 
+  const queryID = req.body.updatedItemId;
+  const queryTitleUpdated = req.body.updatedItemTitle;
+  db.query("UPDATE items SET title = $1 where id = $2;", [queryTitleUpdated,queryID]);
+  res.redirect("/");
+
 
   // const result = db.query("")
 
